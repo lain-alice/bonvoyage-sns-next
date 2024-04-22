@@ -7,12 +7,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCv2oBvJbTgtBdl-c0uah1qeGHvCU_rhvs",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: "bonvoyage-sns.firebaseapp.com",
   projectId: "bonvoyage-sns",
   storageBucket: "bonvoyage-sns.appspot.com",
   messagingSenderId: "303650069475",
-  appId: "1:303650069475:web:8fd1ab88d09e24636e1ed6",
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
 // Initialize Firebase
