@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_KR } from "next/font/google";
+// import { Inter, Noto_Sans_KR } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
-const notoSansKr = Noto_Sans_KR({
-  subsets: ["latin"],
-  weight: ["100", "400", "700", "900"],
-});
+// const notoSansKr = Noto_Sans_KR({
+//   subsets: ["latin"],
+//   weight: ["100", "400", "700", "900"],
+// });
 
-export const pretendard = localFont({
+const pretendard = localFont({
   src: [
     {
       path: "./fonts/Pretendard-Regular.woff",
