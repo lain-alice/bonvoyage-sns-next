@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -32,12 +34,6 @@ const SignUp = () => {
       console.error(error);
     }
   };
-  const signIn = (event: any) => {
-    event.preventDefault();
-  };
-  const logOut = (event: any) => {
-    event.preventDefault();
-  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
@@ -45,27 +41,25 @@ const SignUp = () => {
       <form>
         <div>
           <label>이메일 : </label>
-          <input
+          <Input
             type="email"
             value={email}
             name="email"
             onChange={onChange}
             required
-          ></input>
+          ></Input>
         </div>
         <div>
           <label>비밀번호 : </label>
-          <input
+          <Input
             type="password"
             value={password}
             name="password"
             onChange={onChange}
             required
-          ></input>
+          ></Input>
         </div>
-        <button onClick={signUp}>회원가입</button>
-        <button onClick={signIn}>로그인</button>
-        <button onClick={logOut}>로그아웃</button>
+        <Button onClick={signUp}>회원가입</Button>
       </form>
     </main>
   );
