@@ -40,7 +40,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="App">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2>로그인 페이지</h2>
       <form>
         <div>
@@ -67,7 +67,7 @@ const SignUp = () => {
         <button onClick={signIn}>로그인</button>
         <button onClick={logOut}>로그아웃</button>
       </form>
-    </div>
+    </main>
   );
 };
 
