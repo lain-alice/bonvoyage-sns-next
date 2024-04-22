@@ -24,7 +24,7 @@ export default function Home() {
               로그인
             </button>
           </Link>
-          <Link href="/signin">
+          <Link href="/signup">
             <button className="w-[80px] h-[40px] border-0 rounded bg-white text-sky-700">
               회원가입
             </button>
