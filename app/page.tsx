@@ -18,14 +18,14 @@ export default function Home() {
           <br />
           설렘을 되새기고 즐거움을 함께 나눠요
         </p>
-        <div className="flex flex-row items-between justify-between w-[180px]">
+        <div className="items-between justify-between w-[180px]">
           <Link href="/login">
             <button className="w-[80px] h-[40px] border-0 rounded bg-sky-700">
               로그인
             </button>
           </Link>
           <Link href="/signup">
-            <button className="w-[80px] h-[40px] border-0 rounded bg-white text-sky-700">
+            <button className="h-[40px] w-[80px] border-0 rounded bg-white text-sky-700">
               회원가입
             </button>
           </Link>

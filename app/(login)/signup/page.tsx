@@ -10,28 +10,45 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = event;
     if (name === "email") {
       setEmail(value);
-    }
-    if (name === "password") {
+    } else if (name === "password") {
       setPassword(value);
     }
   };
 
   const signUp = async () => {
+    if (!email || !password) {
+      alert("이메일, 비밀번호를 입력해주세요.");
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log(userCredential);
+      const user = userCredential.user;
+      console.log(user);
     } catch (error) {
-      console.error(error);
+      // switch (err) {
+      //   case "auth/invalid-email":
+      //     alert("이메일을 바르게 입력해주세요.");
+      //     break;
+      //   case "auth/weak-password":
+      //     alert("비밀번호가 너무 단순합니다.");
+      //     break;
+      //   case "auth/email-already-in-use":
+      //     alert("이미 등록된 이메일입니다.");
+      //     break;
+      //   default:
+      //     console.log("회원가입 실패");
+      //     break;
+      // }
     }
   };
 
