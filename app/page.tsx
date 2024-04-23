@@ -10,7 +10,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col place-items-center h-auto w-full">
-        <h1 className="font-extrabold font-pretendard text-5xl text-sky-300 mb-[60px]">
+        <h1 className="font-extrabold text-5xl text-sky-300 mb-[60px]">
           Bon Voyage!
         </h1>
         <p className="font-light text-lg text-center whitespace-pre-wrap mb-[30px]">
@@ -18,14 +18,14 @@ export default function Home() {
           <br />
           설렘을 되새기고 즐거움을 함께 나눠요
         </p>
-        <div className="items-between justify-between w-[180px]">
+        <div className="flex flex-row items-between justify-between w-[180px]">
           <Link href="/login">
             <button className="w-[80px] h-[40px] border-0 rounded bg-sky-700">
               로그인
             </button>
           </Link>
           <Link href="/signup">
-            <button className="h-[40px] w-[80px] border-0 rounded bg-white text-sky-700">
+            <button className="w-[80px] h-[40px] border-0 rounded bg-white text-sky-700">
               회원가입
             </button>
           </Link>

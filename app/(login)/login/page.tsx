@@ -1,28 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-const Login = () => {
+const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
     } = event;
     if (name === "email") {
       setEmail(value);
-    }
-    if (name === "password") {
+    } else if (name === "password") {
       setPassword(value);
     }
   };
 
-  const signUp = async () => {
+  const signIn = async () => {
+    if (!email || !password) {
+      alert("이메일, 비밀번호를 입력해주세요.");
+    }
+
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
@@ -32,43 +37,35 @@ const Login = () => {
       console.error(error);
     }
   };
-  const signIn = (event: any) => {
-    event.preventDefault();
-  };
-  const logOut = (event: any) => {
-    event.preventDefault();
-  };
 
   return (
-    <div className="App">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2>로그인 페이지</h2>
       <form>
         <div>
           <label>이메일 : </label>
-          <input
+          <Input
             type="email"
             value={email}
             name="email"
             onChange={onChange}
             required
-          ></input>
+          ></Input>
         </div>
         <div>
           <label>비밀번호 : </label>
-          <input
+          <Input
             type="password"
             value={password}
             name="password"
             onChange={onChange}
             required
-          ></input>
+          ></Input>
         </div>
-        <button onClick={signUp}>회원가입</button>
-        <button onClick={signIn}>로그인</button>
-        <button onClick={logOut}>로그아웃</button>
+        <Button onClick={signIn}>로그인</Button>
       </form>
-    </div>
+    </main>
   );
 };
 
-export default Login;
+export default LogIn;
