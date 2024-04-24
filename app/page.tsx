@@ -10,7 +10,7 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col place-items-center h-auto w-full">
-        <h1 className="font-extrabold font-pretendard text-5xl text-sky-300 mb-[60px]">
+        <h1 className="font-extrabold text-5xl text-sky-300 mb-[60px]">
           Bon Voyage!
         </h1>
         <p className="font-light text-lg text-center whitespace-pre-wrap mb-[30px]">
