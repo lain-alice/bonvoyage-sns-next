@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/firebaseClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const LogIn = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,6 +35,7 @@ const LogIn = () => {
         password
       );
       console.log(userCredential);
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +43,7 @@ const LogIn = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h2>로그인 페이지</h2>
+      <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">로그인</h2>
       <form>
         <div>
           <label>이메일 : </label>
