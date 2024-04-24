@@ -21,7 +21,7 @@ export default function Home() {
         console.log("로그아웃됨");
       }
     });
-  }, [auth]);
+  }, [currentUser?.email]);
 
   const logOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -47,20 +47,16 @@ export default function Home() {
         </p>
         <div className="flex flex-row items-between justify-between w-[180px]">
           {currentUser ? (
-            <Button className="mt-[20px]" onClick={logOut}>
+            <Button className="mt-5" onClick={logOut}>
               로그아웃
             </Button>
           ) : (
             <>
               <Link href="/login">
-                <button className="w-[80px] h-[40px] border-0 rounded bg-sky-700">
-                  로그인
-                </button>
+                <Button className="w-20 bg-sky-700">로그인</Button>
               </Link>
               <Link href="/signup">
-                <button className="w-[80px] h-[40px] border-0 rounded bg-white text-sky-700">
-                  회원가입
-                </button>
+                <Button className="w-20 bg-white text-sky-700">회원가입</Button>
               </Link>
             </>
           )}

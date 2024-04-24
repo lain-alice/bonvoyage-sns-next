@@ -101,7 +101,9 @@ const LogIn = () => {
             required
           ></Input>
         </div>
-        <Button onClick={signIn}>로그인</Button>
+        <Button className="w-20 mt-5" onClick={signIn}>
+          로그인
+        </Button>
       </form>
     </main>
   );
