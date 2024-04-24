@@ -8,7 +8,6 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebaseClient";
-import useDebounce from "@/app/hooks/useDebounce";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -23,14 +22,17 @@ const LogIn = () => {
     });
   }, []);
 
-  const debouncedOnChange = useDebounce((value: string, name: string) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { name, value },
+    } = event;
     if (name === "email") {
       setEmail(value);
       console.log(value);
     } else if (name === "password") {
       setPassword(value);
     }
-  }, 200);
+  };
 
   const signIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -85,7 +87,7 @@ const LogIn = () => {
             type="email"
             value={email}
             name="email"
-            onChange={(e) => debouncedOnChange(e.target.value, e.target.name)}
+            onChange={onChange}
             required
           ></Input>
         </div>
@@ -95,7 +97,7 @@ const LogIn = () => {
             type="password"
             value={password}
             name="password"
-            onChange={(e) => debouncedOnChange(e.target.value, e.target.name)}
+            onChange={onChange}
             required
           ></Input>
         </div>
