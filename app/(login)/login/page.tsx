@@ -1,16 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../../firebase/firebaseClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const LogIn = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log("user", user);
+    });
+  }, []);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -18,14 +28,17 @@ const LogIn = () => {
     } = event;
     if (name === "email") {
       setEmail(value);
+      console.log(value);
     } else if (name === "password") {
       setPassword(value);
     }
   };
 
-  const signIn = async () => {
-    if (!email || !password) {
-      alert("이메일, 비밀번호를 입력해주세요.");
+  const signIn = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    interface AuthError extends Error {
+      code: string;
     }
 
     try {
@@ -34,10 +47,33 @@ const LogIn = () => {
         email,
         password
       );
-      console.log(userCredential);
+      console.log("user with signIn", userCredential.user);
       router.push("/");
-    } catch (error) {
-      console.error(error);
+    } catch (err: unknown) {
+      const authErr = err as AuthError;
+      switch (authErr.code) {
+        case "auth/user-not-found" || "auth/wrong-password":
+          alert("이메일 혹은 비밀번호가 일치하지 않습니다.");
+          break;
+        case "auth/email-already-in-use":
+          alert("이미 사용중인 이메일입니다.");
+          break;
+        case "auth/weak-password":
+          alert("비밀번호는 6글자 이상이어야 합니다.");
+          break;
+        case "auth/network-request-failed":
+          alert("네트워크 연결에 실패했습니다.");
+          break;
+        case "auth/invalid-email":
+          alert("이메일 형식이 잘못되었습니다.");
+          break;
+        case "auth/internal-error":
+          alert("잘못된 요청입니다.");
+          break;
+        default:
+          alert("로그인에 실패했습니다.");
+          break;
+      }
     }
   };
 
@@ -65,7 +101,9 @@ const LogIn = () => {
             required
           ></Input>
         </div>
-        <Button onClick={signIn}>로그인</Button>
+        <Button className="w-20 mt-5" onClick={signIn}>
+          로그인
+        </Button>
       </form>
     </main>
   );

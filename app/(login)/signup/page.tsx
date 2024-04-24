@@ -101,7 +101,7 @@ const SignUp = () => {
             required
           ></Input>
         </div>
-        <Button className="mt-[20px]" onClick={signUp}>
+        <Button className="w-20 mt-5" onClick={signUp}>
           회원가입
         </Button>
       </form>
