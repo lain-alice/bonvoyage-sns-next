@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 
 const SignUp = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
