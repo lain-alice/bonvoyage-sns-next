@@ -44,6 +44,10 @@ const SignUp = () => {
       code: string;
     }
 
+    function isAuthError(error: unknown): error is AuthError {
+      return (error as AuthError).code !== undefined;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -59,29 +63,30 @@ const SignUp = () => {
       console.log("user", userCredential.user);
       router.push("/");
     } catch (err: unknown) {
-      const authErr = err as AuthError;
-      switch (authErr.code) {
-        case "auth/user-not-found" || "auth/wrong-password":
-          alert("이메일 혹은 비밀번호가 일치하지 않습니다.");
-          break;
-        case "auth/email-already-in-use":
-          alert("이미 사용중인 이메일입니다.");
-          break;
-        case "auth/weak-password":
-          alert("비밀번호는 6글자 이상이어야 합니다.");
-          break;
-        case "auth/network-request-failed":
-          alert("네트워크 연결에 실패했습니다.");
-          break;
-        case "auth/invalid-email":
-          alert("이메일 형식이 잘못되었습니다.");
-          break;
-        case "auth/internal-error":
-          alert("잘못된 요청입니다.");
-          break;
-        default:
-          alert("로그인에 실패했습니다.");
-          break;
+      if (isAuthError(err)) {
+        switch (err.code) {
+          case "auth/user-not-found" || "auth/wrong-password":
+            alert("이메일 혹은 비밀번호가 일치하지 않습니다.");
+            break;
+          case "auth/email-already-in-use":
+            alert("이미 사용중인 이메일입니다.");
+            break;
+          case "auth/weak-password":
+            alert("비밀번호는 6글자 이상이어야 합니다.");
+            break;
+          case "auth/network-request-failed":
+            alert("네트워크 연결에 실패했습니다.");
+            break;
+          case "auth/invalid-email":
+            alert("이메일 형식이 잘못되었습니다.");
+            break;
+          case "auth/internal-error":
+            alert("잘못된 요청입니다.");
+            break;
+          default:
+            alert("로그인에 실패했습니다.");
+            break;
+        }
       }
     }
   };
