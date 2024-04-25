@@ -52,12 +52,18 @@ export default function Home() {
             </Button>
           ) : (
             <>
-              <Link href="/login">
-                <Button className="w-20 bg-sky-700">로그인</Button>
-              </Link>
-              <Link href="/signup">
-                <Button className="w-20 bg-white text-sky-700">회원가입</Button>
-              </Link>
+              <Button
+                className="w-20 bg-sky-700"
+                onClick={() => router.push("/login")}
+              >
+                로그인
+              </Button>
+              <Button
+                className="w-20 bg-white text-sky-700"
+                onClick={() => router.push("/signup")}
+              >
+                회원가입
+              </Button>
             </>
           )}
         </div>
