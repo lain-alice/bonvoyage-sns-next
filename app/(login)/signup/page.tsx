@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebaseClient";
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,7 @@ const SignUp = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -28,6 +30,8 @@ const SignUp = () => {
     } = e;
     if (name === "email") {
       setEmail(value);
+    } else if (name === "username") {
+      setUsername(value);
     } else if (name === "password") {
       setPassword(value);
     }
@@ -46,6 +50,11 @@ const SignUp = () => {
         email,
         password
       );
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: username,
+        });
+      }
 
       console.log("user", userCredential.user);
       router.push("/");
@@ -87,6 +96,16 @@ const SignUp = () => {
             type="email"
             value={email}
             name="email"
+            onChange={onChange}
+            required
+          ></Input>
+        </div>
+        <div>
+          <label>닉네임 </label>
+          <Input
+            type="text"
+            value={username}
+            name="username"
             onChange={onChange}
             required
           ></Input>
