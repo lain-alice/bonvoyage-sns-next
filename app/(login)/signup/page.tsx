@@ -10,7 +10,6 @@ import {
 import { auth } from "../../firebase/firebaseClient";
 import Form from "../components/Form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 const SignUp = () => {
   const router = useRouter();
@@ -124,6 +123,7 @@ const SignUp = () => {
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">회원가입</h2>
       <Form fields={fields} />
+      <div className="text-red-600 my-2">{warningText}</div>
       <Button className="w-20" onClick={signUp}>
         회원가입
       </Button>
