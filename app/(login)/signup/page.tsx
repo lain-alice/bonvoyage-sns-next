@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebaseClient";
+import Form from "../components/Form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -92,45 +93,40 @@ const SignUp = () => {
     }
   };
 
+  const fields = [
+    {
+      label: "이메일",
+      type: "email",
+      value: email,
+      name: "email",
+      onChange: onChange,
+      required: true,
+    },
+    {
+      label: "닉네임",
+      type: "text",
+      value: username,
+      name: "username",
+      onChange: onChange,
+      required: true,
+    },
+    {
+      label: "비밀번호",
+      type: "password",
+      value: password,
+      name: "password",
+      onChange: onChange,
+      required: true,
+    },
+  ];
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">회원가입</h2>
-      <form>
-        <div>
-          <label>이메일 </label>
-          <Input
-            type="email"
-            value={email}
-            name="email"
-            onChange={onChange}
-            required
-          ></Input>
-        </div>
-        <div>
-          <label>닉네임 </label>
-          <Input
-            type="text"
-            value={username}
-            name="username"
-            onChange={onChange}
-            required
-          ></Input>
-        </div>
-        <div>
-          <label>비밀번호 </label>
-          <Input
-            type="password"
-            value={password}
-            name="password"
-            onChange={onChange}
-            required
-          ></Input>
-        </div>
-        <div className="text-red-600 my-2">{warningText}</div>
-        <Button className="w-20" onClick={signUp}>
-          회원가입
-        </Button>
-      </form>
+      <Form fields={fields} />
+      <Button className="w-20" onClick={signUp}>
+        회원가입
+      </Button>
     </main>
   );
 };
