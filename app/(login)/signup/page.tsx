@@ -16,6 +16,7 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const [warningText, setWarningText] = useState<string>("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -66,26 +67,26 @@ const SignUp = () => {
       if (isAuthError(err)) {
         switch (err.code) {
           case "auth/user-not-found" || "auth/wrong-password":
-            alert("이메일 혹은 비밀번호가 일치하지 않습니다.");
-            break;
+            setWarningText("이메일 혹은 비밀번호가 일치하지 않습니다.");
+            return;
           case "auth/email-already-in-use":
-            alert("이미 사용중인 이메일입니다.");
-            break;
+            setWarningText("이미 사용중인 이메일입니다.");
+            return;
           case "auth/weak-password":
-            alert("비밀번호는 6글자 이상이어야 합니다.");
-            break;
+            setWarningText("비밀번호는 8글자 이상이어야 합니다.");
+            return;
           case "auth/network-request-failed":
-            alert("네트워크 연결에 실패했습니다.");
-            break;
+            setWarningText("네트워크 연결에 실패했습니다.");
+            return;
           case "auth/invalid-email":
-            alert("이메일 형식이 잘못되었습니다.");
-            break;
+            setWarningText("이메일 형식이 잘못되었습니다.");
+            return;
           case "auth/internal-error":
-            alert("잘못된 요청입니다.");
-            break;
+            setWarningText("잘못된 요청입니다.");
+            return;
           default:
-            alert("로그인에 실패했습니다.");
-            break;
+            setWarningText("로그인에 실패했습니다.");
+            return;
         }
       }
     }
@@ -125,7 +126,8 @@ const SignUp = () => {
             required
           ></Input>
         </div>
-        <Button className="w-20 mt-5" onClick={signUp}>
+        <div className="text-red-600 my-2">{warningText}</div>
+        <Button className="w-20" onClick={signUp}>
           회원가입
         </Button>
       </form>
