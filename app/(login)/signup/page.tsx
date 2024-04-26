@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase/firebaseClient";
 import Form from "../components/Form";
-import { Button } from "@/components/ui/button";
 
 const SignUp = () => {
   const router = useRouter();
@@ -24,7 +23,7 @@ const SignUp = () => {
     });
   }, []);
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const {
       target: { name, value },
@@ -38,7 +37,7 @@ const SignUp = () => {
     }
   };
 
-  const signUp = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     interface AuthError extends Error {
@@ -98,7 +97,7 @@ const SignUp = () => {
       type: "email",
       value: email,
       name: "email",
-      onChange: onChange,
+      onChange: handleChange,
       required: true,
     },
     {
@@ -106,7 +105,7 @@ const SignUp = () => {
       type: "text",
       value: username,
       name: "username",
-      onChange: onChange,
+      onChange: handleChange,
       required: true,
     },
     {
@@ -114,7 +113,7 @@ const SignUp = () => {
       type: "password",
       value: password,
       name: "password",
-      onChange: onChange,
+      onChange: handleChange,
       required: true,
     },
   ];
@@ -122,11 +121,12 @@ const SignUp = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">회원가입</h2>
-      <Form fields={fields} />
-      <div className="text-red-600 my-2">{warningText}</div>
-      <Button className="w-20" onClick={signUp}>
-        회원가입
-      </Button>
+      <Form
+        fields={fields}
+        onSubmit={signUp}
+        warningText={warningText}
+        buttonText={"로그인"}
+      />
     </main>
   );
 };

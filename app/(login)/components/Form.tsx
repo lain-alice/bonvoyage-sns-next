@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface Field {
   label: string;
@@ -12,10 +13,18 @@ interface Field {
 
 interface FormProps {
   fields: Field[];
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  warningText?: string;
+  buttonText: string;
 }
 
-const Form: React.FC<FormProps> = ({ fields }) => (
-  <form>
+const Form: React.FC<FormProps> = ({
+  fields,
+  onSubmit,
+  warningText,
+  buttonText,
+}) => (
+  <form onSubmit={onSubmit}>
     {fields.map((field, index) => (
       <div key={index}>
         <label>{field.label} </label>
@@ -28,6 +37,10 @@ const Form: React.FC<FormProps> = ({ fields }) => (
         />
       </div>
     ))}
+    <div className="text-red-600 my-2">{warningText}</div>
+    <Button className="w-20" type="submit">
+      {buttonText}
+    </Button>
   </form>
 );
 
