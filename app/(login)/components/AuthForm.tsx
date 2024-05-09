@@ -18,7 +18,7 @@ interface FormProps {
   buttonText: string;
 }
 
-const Form: React.FC<FormProps> = ({
+const AuthForm: React.FC<FormProps> = ({
   fields,
   onSubmit,
   warningText,
@@ -37,11 +37,13 @@ const Form: React.FC<FormProps> = ({
         />
       </div>
     ))}
-    <div className="text-red-600 my-2">{warningText}</div>
-    <Button className="w-20" type="submit">
-      {buttonText}
-    </Button>
+    <div className="flex flex-col items-center justify-center min-h-20 ">
+      <div className="text-red-600 my-2">{warningText}</div>
+      <Button className="w-full bg-sky-600" type="submit">
+        {buttonText}
+      </Button>
+    </div>
   </form>
 );
 
-export default Form;
+export default AuthForm;

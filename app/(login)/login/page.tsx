@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebaseClient";
-import Form from "../components/Form";
+import { FirebaseError } from "firebase/app";
+import { auth } from "../../firebase";
+import AuthForm from "../components/AuthForm";
 
-const LogIn = () => {
+export default function LogIn() {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -19,7 +20,6 @@ const LogIn = () => {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const {
       target: { name, value },
     } = e;
@@ -33,14 +33,7 @@ const LogIn = () => {
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    interface AuthError extends Error {
-      code: string;
-    }
-
-    function isAuthError(error: unknown): error is AuthError {
-      return (error as AuthError).code !== undefined;
-    }
+    setWarningText(""); // 버튼 2번 클릭하면 에러메시지 초기화
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -49,9 +42,9 @@ const LogIn = () => {
         password
       );
       console.log("user with signIn", userCredential.user);
-      router.push("/");
-    } catch (err: unknown) {
-      if (isAuthError(err)) {
+      router.push("/main");
+    } catch (err) {
+      if (err instanceof FirebaseError) {
         switch (err.code) {
           case "auth/user-not-found" || "auth/wrong-password":
             setWarningText("이메일 혹은 비밀번호가 일치하지 않습니다.");
@@ -101,7 +94,7 @@ const LogIn = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">로그인</h2>
-      <Form
+      <AuthForm
         fields={fields}
         onSubmit={signIn}
         warningText={warningText}
@@ -109,6 +102,4 @@ const LogIn = () => {
       />
     </main>
   );
-};
-
-export default LogIn;
+}

@@ -1,33 +1,7 @@
-"use client";
-
 import Image from "next/image";
-
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./firebase/firebaseClient";
-import { Button } from "@/components/ui/button";
+import HomeButton from "./components/HomeButton";
 
 export default function Home() {
-  const currentUser = auth.currentUser;
-  const router = useRouter();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log(`${currentUser?.email} 로그인됨`);
-      } else {
-        console.log("로그아웃됨");
-      }
-    });
-  }, [currentUser?.email]);
-
-  const logOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    await signOut(auth);
-    router.push("/");
-  };
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-[#29323c] to-[#485563] text-white">
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
@@ -44,28 +18,7 @@ export default function Home() {
           <br />
           설렘을 되새기고 즐거움을 함께 나눠요
         </p>
-        <div className="flex flex-row items-between justify-between w-[180px]">
-          {currentUser ? (
-            <Button className="mt-5" onClick={logOut}>
-              로그아웃
-            </Button>
-          ) : (
-            <>
-              <Button
-                className="w-20 bg-sky-700"
-                onClick={() => router.push("/login")}
-              >
-                로그인
-              </Button>
-              <Button
-                className="w-20 bg-white text-sky-700"
-                onClick={() => router.push("/signup")}
-              >
-                회원가입
-              </Button>
-            </>
-          )}
-        </div>
+        <HomeButton />
       </div>
 
       <div>
