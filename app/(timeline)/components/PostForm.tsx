@@ -7,7 +7,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import now from "./time";
+// import now from "./time";
 
 export default function PostForm() {
   const maxFileSize = 2 * 1024 * 1024;
@@ -40,7 +40,7 @@ export default function PostForm() {
         // Firebase SDK의 addDoc 함수, Firestore 인스턴스와 컬렉션 이름
         // doc 참조를 Promise 형태로 반환
         post,
-        createdAt: now,
+        createdAt: Date.now(),
         username: user.displayName || "Anonymous",
         // 유저 닉네임, 없으면 Anonymous
         userId: user.uid,
