@@ -7,10 +7,11 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { auth } from "../../firebase/firebaseClient";
-import Form from "../components/Form";
+import { FirebaseError } from "firebase/app";
+import { auth } from "../../firebase";
+import AuthForm from "../components/AuthForm";
 
-const SignUp = () => {
+export default function SignUp() {
   const router = useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -24,7 +25,6 @@ const SignUp = () => {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const {
       target: { name, value },
     } = e;
@@ -39,14 +39,17 @@ const SignUp = () => {
 
   const signUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setWarningText(""); // 버튼 2번 클릭하면 에러메시지 초기화
 
-    interface AuthError extends Error {
-      code: string;
-    }
+    // interface AuthError extends Error {
+    //   code: string;
+    // }
 
-    function isAuthError(error: unknown): error is AuthError {
-      return (error as AuthError).code !== undefined;
-    }
+    // function isAuthError(error: unknown): error is AuthError {
+    //   return (error as AuthError).code !== undefined;
+    // }
+
+    if (!email || !password || !username) return;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -62,8 +65,8 @@ const SignUp = () => {
 
       console.log("user", userCredential.user);
       router.push("/");
-    } catch (err: unknown) {
-      if (isAuthError(err)) {
+    } catch (err) {
+      if (err instanceof FirebaseError) {
         switch (err.code) {
           case "auth/user-not-found" || "auth/wrong-password":
             setWarningText("이메일 혹은 비밀번호가 일치하지 않습니다.");
@@ -119,16 +122,14 @@ const SignUp = () => {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="flex flex-col items-center justify-center min-h-screen w-auto px-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">회원가입</h2>
-      <Form
+      <AuthForm
         fields={fields}
         onSubmit={signUp}
         warningText={warningText}
-        buttonText={"로그인"}
+        buttonText={"회원가입"}
       />
     </main>
   );
-};
-
-export default SignUp;
+}

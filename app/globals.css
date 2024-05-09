@@ -69,5 +69,9 @@
 @layer base {
   body {
     background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    box-sizing: border-box;
+  }
+  ::-webkit-scrollbar {
+    display: none;
   }
 }
