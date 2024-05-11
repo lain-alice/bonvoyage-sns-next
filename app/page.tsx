@@ -3,14 +3,14 @@ import HomeButton from "./components/HomeButton";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gradient-to-r from-[#29323c] to-[#485563] text-white">
+    <main className="flex min-h-screen flex-col items-center justify-between p-10 md:p-24 bg-gradient-to-r from-[#29323c] to-[#485563] text-white">
       <div className="z-10 w-full max-w-5xl items-center justify-between text-sm lg:flex">
         {/* <p>여행 후기 SNS</p>
         <p>Bon Voyage!</p> */}
       </div>
 
       <div className="flex flex-col place-items-center h-auto w-full">
-        <h1 className="font-extrabold text-5xl text-sky-300 mb-[60px]">
+        <h1 className="font-extrabold text-3xl md:text-5xl text-sky-300 mb-[60px]">
           Bon Voyage!
         </h1>
         <p className="font-light text-lg text-center whitespace-pre-wrap mb-[30px]">

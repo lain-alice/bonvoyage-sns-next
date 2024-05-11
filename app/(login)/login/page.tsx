@@ -92,7 +92,7 @@ export default function LogIn() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <div className="flex min-h-screen flex-col items-center justify-center md:p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">로그인</h2>
       <AuthForm
         fields={fields}
@@ -100,6 +100,6 @@ export default function LogIn() {
         warningText={warningText}
         buttonText={"로그인"}
       />
-    </main>
+    </div>
   );
 }

@@ -7,10 +7,10 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-// import now from "./time";
+import { ImageUp, ImagePlus } from "lucide-react";
 
 export default function PostForm() {
-  const maxFileSize = 2 * 1024 * 1024;
+  const maxFileSize = 5 * 1024 * 1024;
   const [post, setPost] = useState("");
   const [file, setFile] = useState<File | null>(null);
 
@@ -23,7 +23,7 @@ export default function PostForm() {
     if (files && files.length === 1) {
       // 파일 하나만 업로드하고 싶음, file이 존재하고 갯수 1개인지
       if (files[0].size > maxFileSize) {
-        alert("2MB 이하의 파일만 업로드 가능합니다.");
+        alert("5MB 이하의 파일만 업로드 가능합니다.");
         return;
       }
 
@@ -51,6 +51,7 @@ export default function PostForm() {
         const result = await uploadBytes(locationRef, file);
         // 이미지를 storage의 locationRef 경로에 업로드
         const url = await getDownloadURL(locationRef);
+        console.log(locationRef);
         // 이미지의 url string 반환하는 Promise
         await updateDoc(doc, { photo: url });
         // 업데이트할 document 참조, 업데이트할 데이터
@@ -67,7 +68,7 @@ export default function PostForm() {
 
   return (
     <form
-      className="flex flex-col justify-items-center w-full gap-4"
+      className="flex flex-col justify-items-center w-full gap-4 mb-7"
       onSubmit={onSubmit}
     >
       <Label className="text-xl font-medium" htmlFor="post">
@@ -83,18 +84,24 @@ export default function PostForm() {
         placeholder="여행의 추억을 들려주세요."
         required
       />
-      <label htmlFor="file">{file ? "Photo Added!" : "Add Photo"}</label>
-      {/* htmlFor와 id 같다면 label 눌렀을 때 id=file 버튼 클릭됨 */}
-      <input
-        className="hidden"
-        onChange={handleFileChange}
-        type="file"
-        id="file"
-        accept="image/*"
-        // 이미지 파일, 모든 확장자
-      />
-      {/* 이 input은 스타일링하기 어려우니 숨기고 위의 label을 꾸민다 */}
-      <Button type="submit" value="Post" />
+      <div className="flex justify-between items-center">
+        <label className="cursor-pointer" htmlFor="file">
+          {file ? <ImagePlus className="text-emerald-400" /> : <ImageUp />}
+        </label>
+        {/* htmlFor와 id 같다면 label 눌렀을 때 id=file 버튼 클릭됨 */}
+        <input
+          className="hidden"
+          onChange={handleFileChange}
+          type="file"
+          id="file"
+          accept="image/*"
+          // 이미지 파일, 모든 확장자
+        />
+        {/* 이 input은 스타일링하기 어려우니 숨기고 위의 label을 꾸민다 */}
+        <Button type="submit" value="Post">
+          Post
+        </Button>
+      </div>
     </form>
   );
 }

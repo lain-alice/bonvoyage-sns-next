@@ -122,7 +122,7 @@ export default function SignUp() {
   ];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen w-auto px-24">
+    <div className="flex flex-col items-center justify-center min-h-screen w-auto md:p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">회원가입</h2>
       <AuthForm
         fields={fields}
@@ -130,6 +130,6 @@ export default function SignUp() {
         warningText={warningText}
         buttonText={"회원가입"}
       />
-    </main>
+    </div>
   );
 }
