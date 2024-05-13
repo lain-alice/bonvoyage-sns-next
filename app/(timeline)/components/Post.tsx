@@ -38,9 +38,9 @@ export default function Post({ username, photo, post, userId, id }: IPost) {
   return (
     <article className="flex gap-2 w-full min-h-28 bg-white rounded mb-3 p-3">
       <div className="max-w-24 flex flex-col">
-        <p className="w-16 md:w-24 bg-gray-200">프사</p>
+        {/* <p className="w-16 md:w-24 bg-gray-200">프사</p> */}
       </div>
-      <div className="w-5/6">
+      <div className="w-full">
         <div className="flex justify-between">
           <div className="flex justify-center align-middle">
             <h3 className="text-lg font-semibold">{username}</h3>
