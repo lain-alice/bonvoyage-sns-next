@@ -22,8 +22,11 @@ export default function HomeButton() {
 
   const logOut = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await signOut(auth);
-    router.push("/");
+    const ok = confirm("로그아웃 하시겠습니까?");
+    if (ok) {
+      await signOut(auth);
+      router.push("/");
+    }
   };
 
   return (

@@ -25,7 +25,6 @@ export default function LogIn() {
     } = e;
     if (name === "email") {
       setEmail(value);
-      console.log(value);
     } else if (name === "password") {
       setPassword(value);
     }
@@ -48,12 +47,6 @@ export default function LogIn() {
         switch (err.code) {
           case "auth/user-not-found" || "auth/wrong-password":
             setWarningText("이메일 혹은 비밀번호가 일치하지 않습니다.");
-            return;
-          case "auth/email-already-in-use":
-            setWarningText("이미 사용중인 이메일입니다.");
-            return;
-          case "auth/weak-password":
-            setWarningText("비밀번호는 8글자 이상이어야 합니다.");
             return;
           case "auth/network-request-failed":
             setWarningText("네트워크 연결에 실패했습니다.");
