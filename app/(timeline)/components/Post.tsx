@@ -6,7 +6,10 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { ref, deleteObject } from "firebase/storage";
 import { auth, storage, db } from "../../firebase";
 import { Button } from "@/components/ui/button";
+import { Trash, Pencil, X } from "lucide-react";
 import { IPost } from "./Timeline";
+import EditPostForm from "./EditPostForm";
+// import now from "./time";
 
 export default function Post({ username, photo, post, userId, id }: IPost) {
   const user = auth.currentUser;
@@ -20,7 +23,8 @@ export default function Post({ username, photo, post, userId, id }: IPost) {
       await deleteDoc(doc(db, "posts", id));
       if (photo) {
         // 트윗에 사진이 있다면
-        const photoRef = ref(storage, `posts/{${user.uid}}/${id}`); // 경로로 사진 파일 참조
+        const photoRef = ref(storage, `posts/${user.uid}/${id}`); // 경로로 사진 파일 참조
+        console.log(photoRef);
         await deleteObject(photoRef); // 참조된 사진 삭제
       }
     } catch (e) {
@@ -32,32 +36,56 @@ export default function Post({ username, photo, post, userId, id }: IPost) {
   const onEdit = () => setIsEditing((prev) => !prev);
 
   return (
-    <div>
-      <div>
-        <h3>{username}</h3>
-        {/* {isEditing ? (
-          <EditTweetForm
-            tweet={tweet}
-            photo={photo}
-            id={id}
-            setIsEditing={setIsEditing}
-          />
-        ) : (
-          <Payload>{tweet}</Payload>
-        )} */}
-        <p>{post}</p>
-        {user?.uid === userId ? (
-          <div>
-            <Button onClick={onDelete}>Delete</Button>
-            {/* <Button onClick={onEdit}>{isEditing ? "Cancel" : "Edit"}</Button> */}
+    <article className="flex gap-2 w-full min-h-28 bg-white rounded mb-3 p-3">
+      <div className="max-w-24 flex flex-col">
+        {/* <p className="w-16 md:w-24 bg-gray-200">프사</p> */}
+      </div>
+      <div className="w-full">
+        <div className="flex justify-between">
+          <div className="flex justify-center align-middle">
+            <h3 className="text-lg font-semibold">{username}</h3>
+            {/* <span className="text-sm text-gray-500">작성시간</span> */}
           </div>
-        ) : null}
+          {user?.uid === userId ? (
+            <div>
+              <Button variant="ghost" size="smicon" onClick={onDelete}>
+                <Trash className="w-5 h-5 text-red-600" />
+              </Button>
+              <Button variant="ghost" size="smicon" onClick={onEdit}>
+                {isEditing ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Pencil className="w-5 h-5" />
+                )}
+              </Button>
+            </div>
+          ) : null}
+        </div>
+        <div className="flex flex-col w-full">
+          {isEditing ? (
+            <EditPostForm
+              post={post}
+              photo={photo}
+              id={id}
+              setIsEditing={setIsEditing}
+            />
+          ) : (
+            <p className="text-wrap overflow-wrap-break-word">{post}</p>
+            // 왜 글자가 칸 빠져나가지??
+          )}
+          {photo ? (
+            <Image
+              src={photo}
+              alt="post image"
+              width="0"
+              height="0"
+              sizes="100vw"
+              className="w-full h-auto rounded-lg"
+              priority
+            />
+          ) : null}
+        </div>
       </div>
-      <div>
-        {photo ? (
-          <Image alt="post image" width="300" height="300" src={photo} />
-        ) : null}
-      </div>
-    </div>
+    </article>
   );
 }

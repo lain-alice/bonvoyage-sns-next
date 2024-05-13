@@ -25,7 +25,6 @@ export default function LogIn() {
     } = e;
     if (name === "email") {
       setEmail(value);
-      console.log(value);
     } else if (name === "password") {
       setPassword(value);
     }
@@ -48,12 +47,6 @@ export default function LogIn() {
         switch (err.code) {
           case "auth/user-not-found" || "auth/wrong-password":
             setWarningText("이메일 혹은 비밀번호가 일치하지 않습니다.");
-            return;
-          case "auth/email-already-in-use":
-            setWarningText("이미 사용중인 이메일입니다.");
-            return;
-          case "auth/weak-password":
-            setWarningText("비밀번호는 8글자 이상이어야 합니다.");
             return;
           case "auth/network-request-failed":
             setWarningText("네트워크 연결에 실패했습니다.");
@@ -92,7 +85,7 @@ export default function LogIn() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <div className="flex min-h-screen flex-col items-center justify-center md:p-24">
       <h2 className="font-bold text-2xl text-sky-800 mb-[30px]">로그인</h2>
       <AuthForm
         fields={fields}
@@ -100,6 +93,6 @@ export default function LogIn() {
         warningText={warningText}
         buttonText={"로그인"}
       />
-    </main>
+    </div>
   );
 }

@@ -69,7 +69,7 @@ export default function Timeline() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col gap-2 w-full overflow-y-scroll">
       {posts.map((post) => (
         <Post key={post.id} {...post} />
       ))}
