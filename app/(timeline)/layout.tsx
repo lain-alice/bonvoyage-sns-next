@@ -6,9 +6,11 @@ export default function TimelineLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <>
       <Nav />
-      {children}
-    </div>
+      <div className="flex min-h-screen items-start justify-center overflow-y-scroll">
+        {children}
+      </div>
+    </>
   );
 }

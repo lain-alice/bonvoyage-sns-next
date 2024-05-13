@@ -15,6 +15,7 @@ import {
 import { auth, storage, db } from "@/app/firebase";
 import { IPost } from "../components/Timeline";
 import Post from "../components/Post";
+import { CircleUserRound } from "lucide-react";
 
 export default function Profile() {
   const user = auth.currentUser;
@@ -94,61 +95,55 @@ export default function Profile() {
   }, [user]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4 py-12 md:py-24 overflow-y-scroll">
-      <main className="flex w-full md:w-3/4 2xl:w-1/3 min-h-screen flex-col items-center justify-center">
-        <label htmlFor="profilePic">
-          {profilePic ? (
-            <Image
-              src={profilePic}
-              alt="profile picture"
-              width="0"
-              height="0"
-              sizes="100vw"
-              className="w-12 h-12 rounded-full"
+    <main className="flex w-full md:w-3/4 2xl:w-1/3 min-h-screen flex-col items-center justify-start">
+      <label htmlFor="profilePic">
+        {profilePic ? (
+          <Image
+            src={profilePic}
+            alt="profile picture"
+            width="0"
+            height="0"
+            sizes="100vw"
+            className="w-24 h-24 rounded-full cursor-pointer"
+          />
+        ) : (
+          <CircleUserRound
+            strokeWidth={1}
+            className="w-24 h-24 text-gray-400 cursor-pointer"
+          />
+        )}
+      </label>
+      <input
+        onChange={onProfilePicChange}
+        id="profilePic"
+        type="file"
+        accept="image/*"
+        className="hidden"
+      />
+      {/* label은 input 의미 알려주는 용도, onChange는 input에 줘야 함 */}
+      <span>
+        {nameEditing ? (
+          <div>
+            <input
+              value={name}
+              placeholder="Edit Name"
+              type="text"
+              onChange={handleNameChange}
             />
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-12 h-12"
-            >
-              <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
-            </svg>
-          )}
-        </label>
-        <input
-          onChange={onProfilePicChange}
-          id="profilePic"
-          type="file"
-          accept="image/*"
-          className="hidden"
-        />
-        {/* label은 input 의미 알려주는 용도, onChange는 input에 줘야 함 */}
-        <span>
-          {nameEditing ? (
-            <div>
-              <input
-                value={name}
-                placeholder="Edit Name"
-                type="text"
-                onChange={handleNameChange}
-              />
-              <button onClick={editName}>Edit</button>
-            </div>
-          ) : (
-            user?.displayName ?? ""
-          )}
-        </span>
-        <button onClick={ToggleNameEdit}>
-          {nameEditing ? "Cancel" : "Edit"}
-        </button>
-        <div className="flex flex-col gap-2 w-full overflow-y-scroll">
-          {posts.map((post) => (
-            <Post key={post.id} {...post} />
-          ))}
-        </div>
-      </main>
-    </div>
+            <button onClick={editName}>Edit</button>
+          </div>
+        ) : (
+          user?.displayName ?? "이름 없는 여행자"
+        )}
+      </span>
+      <button onClick={ToggleNameEdit}>
+        {nameEditing ? "Cancel" : "Edit"}
+      </button>
+      <div className="flex flex-col gap-2 w-full overflow-y-scroll">
+        {posts.map((post) => (
+          <Post key={post.id} {...post} />
+        ))}
+      </div>
+    </main>
   );
 }

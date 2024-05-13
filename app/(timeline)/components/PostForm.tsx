@@ -41,7 +41,7 @@ export default function PostForm() {
         // doc 참조를 Promise 형태로 반환
         post,
         createdAt: Date.now(),
-        username: user.displayName || "Anonymous",
+        username: user.displayName || "이름 없는 여행자",
         // 유저 닉네임, 없으면 Anonymous
         userId: user.uid,
         // 작성자 본인만 트윗 삭제하기 위해 유저 아이디 확인

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 export default function LogOutButton() {
   const router = useRouter();
@@ -17,8 +18,13 @@ export default function LogOutButton() {
   };
 
   return (
-    <Button className="w-20" onClick={logOut}>
-      로그아웃
+    <Button
+      variant="ghost"
+      size="icon"
+      className="text-red-700"
+      onClick={logOut}
+    >
+      <LogOut />
     </Button>
   );
 }
