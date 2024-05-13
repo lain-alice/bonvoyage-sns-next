@@ -145,7 +145,7 @@ export default function Profile() {
               {user?.displayName ?? "이름 없는 여행자"}
             </span>
           )}
-          {nameEditing ? null : (
+          {!nameEditing && (
             <Button variant="ghost" size="xsicon" onClick={ToggleNameEdit}>
               <Pencil className="w-3 h-3 text-gray-500" />
             </Button>
