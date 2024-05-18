@@ -5,7 +5,7 @@ import { ArrowLeft, Home, UserRound } from "lucide-react";
 
 export default function Nav() {
   return (
-    <nav className="flex fixed bottom-0 md:top-0 w-full md:w-[12%] h-12 md:h-full md:flex-col justify-start items-center border-solid border-t-2 md:border-r-2 border-gray-200 bg-white px-1 md:pt-16 md:gap-5">
+    <nav className="flex fixed bottom-0 md:top-0 w-full md:w-[12%] h-12 md:h-full md:flex-col justify-start items-center border-solid border-t-2 md:border-t-0 md:border-r-2 border-gray-200 bg-white px-1 md:pt-16 md:gap-5">
       <Link href="/main">
         <h1 className="hidden md:block lg:text-lg font-bold text-teal-500">
           Bon Voyage!
