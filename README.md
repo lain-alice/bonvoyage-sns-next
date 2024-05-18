@@ -87,6 +87,7 @@ yarn run dev
 
 <details>
 <summary><b>1. 트러블슈팅(작성중)</b></summary>
+<summary><b>1. 트러블슈팅</b></summary>
 <div markdown="1">
 
 #### 문제
