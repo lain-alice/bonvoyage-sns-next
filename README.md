@@ -2,6 +2,16 @@
 
 > Trip Review SNS project - using Next.js
 
+</br>
+
+## 1. 소개
+
+<!-- <img src="https://github.com/hwb0218/look-so-p/assets/52212226/71d1580f-27e9-43d2-96df-bb90dc3af0b8" alt="Image 1" width="100%"> -->
+
+여행 후기 공유 SNS **Bon Voyage!**입니다. Next.js를 이용해 개발하였으며, 여행 사진과 후기 글을 업로드하여 실시간으로 공유합니다.
+
+<https://www.bonvoyagewith.site/>
+
 `npm`
 
 ```Shell
@@ -19,14 +29,6 @@ cd bonvoyage-sns-next
 yarn install
 yarn run dev
 ```
-
-</br>
-
-## 1. 소개
-
-<!-- <img src="https://github.com/hwb0218/look-so-p/assets/52212226/71d1580f-27e9-43d2-96df-bb90dc3af0b8" alt="Image 1" width="100%"> -->
-
-<https://www.bonvoyagewith.site/>
 
 테스트 계정
 
