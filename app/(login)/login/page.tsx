@@ -45,7 +45,8 @@ export default function LogIn() {
     } catch (err) {
       if (err instanceof FirebaseError) {
         switch (err.code) {
-          case "auth/user-not-found" || "auth/wrong-password":
+          // case "auth/user-not-found":
+          case "auth/wrong-password":
             setWarningText("이메일 혹은 비밀번호가 일치하지 않습니다.");
             return;
           case "auth/network-request-failed":
